@@ -16,15 +16,16 @@ class SendMessage implements ShouldBroadcastNow
     use InteractsWithSockets, SerializesModels;
 
     public $data = ['asas'];
+    private $_message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message)
     {
-
+        $this->_message = $message;
     }
 
     /**
@@ -53,6 +54,6 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastWith()
     {
-        return ['title'=>'This notification from ItSolutionStuff.com'];
+        return ['title' => $this->_message];
     }
 }

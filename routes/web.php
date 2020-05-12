@@ -16,7 +16,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/t', function () {
-    event(new \App\Events\SendMessage());
+Route::get('/t/{text}', function () {
+    event(new \App\Events\SendMessage(request()->route()->parameter('text')));
     dd('Event Run Successfully.');
+});
+
+
+Route::get('/u/{id}', function () {
+    $user = \App\User::findOrFail(request()->route()->parameter('id'));
+    $user->notify(new \App\Notifications\NewComment($user));
+    event(new \App\Notifications\NewComment($user));
+    dump($user);
+    dd('User event göndeirldi');
 });

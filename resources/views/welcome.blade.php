@@ -31,5 +31,11 @@
             i++;
             $("#notification").append('<div class="alert alert-success">'+i+'.'+data.title+'</div>');
         });
+
+
+    window.Echo.private('App.User.' + 1)
+        .notification((notification) => {
+            console.log(notification.type);
+        });
 </script>
 </html>
